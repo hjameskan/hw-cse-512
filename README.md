@@ -19,7 +19,7 @@ A simple example of a bar chart using D3.js and React.js.
 
 2. Navigate to the project directory:
 
-```cd d3-react-bar-chart```
+```cd hw-cse-512```
 1. Install the dependencies:
 
 ```yarn install```
