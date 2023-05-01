@@ -1,9 +1,11 @@
 name: Deploy to GitHub Pages
+permissions: 
+  contents: write
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -11,10 +13,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
@@ -24,7 +26,19 @@ jobs:
       - name: Build
         run: yarn build
 
+      - name: Set git identity
+        run: |
+          git config user.email "kanjames@uw.edu"
+          git config user.name "github runner"
+
       - name: Deploy to GitHub Pages
-        run: yarn deploy
+        if: success()
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          target_branch: gh-pages
+          build_dir: build
+          jekyll: false
+          verbose: true
+          keep_history: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

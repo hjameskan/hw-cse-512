@@ -1,3 +1,7 @@
+### This Repo Is Published to the URL: https://hjameskan.github.io/hw-cse-512/
+
+<br />
+
 # D3.js Bar Chart with React
 
 A simple example of a bar chart using D3.js and React.js.
