@@ -25,6 +25,8 @@ jobs:
 
       - name: Build
         run: yarn build
+        env:
+        CI: false
 
       - name: Set git identity
         run: |
