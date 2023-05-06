@@ -3,6 +3,7 @@ import BarChart from './BarChart';
 import BrushableParallelCoordinates from './BrushableParallelCoordinates';
 import { csvParse as csv } from 'd3-dsv';
 import carsCSV from './res/cars.csv';
+import BrushableParallelCoordinatesEmbed from './brushable-parallel-coordinates';
 
 const App = () => {
   const [barChartData, setBarChartData] = useState([25, 30, 45, 60, 20, 65, 75]);
@@ -37,6 +38,15 @@ const App = () => {
       <button onClick={addData}>Add Data</button>
       <h1>Brushable Parallel Coordinates with React</h1>
       {carData.length > 0 && <BrushableParallelCoordinates data={carData} />}
+      <h1>Embedding ObservableHQ Graph with iframe</h1>
+      <h2>Cannot remove credits</h2>
+      <iframe width="100%" height="925" frameborder="0" src="https://observablehq.com/embed/@d3/brushable-parallel-coordinates?cells=viewof+selection"/>
+      
+      <h1>Embedding ObservableHQ Graph by Writing React Component</h1>
+      <h2>Allows me to remove credits</h2>
+      <BrushableParallelCoordinatesEmbed />
+
+
     </div>
   );
 };

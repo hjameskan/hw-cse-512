@@ -1,33 +1,34 @@
-import * as d3 from "d3";
+import React, { useEffect, useRef } from "react";
 // import { Runtime, Inspector } from "@observablehq/runtime";
 import { Runtime, Inspector } from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/dist/runtime.js";
-import React from "react";
-import ReactDOM from "react-dom";
-import notebook from "./brushable-parallel-coordinates-notebook";
+import define from "https://api.observablehq.com/@d3/brushable-parallel-coordinates.js?v=3";
+// import "@observablehq/inspector/dist/inspector.css";
+import "./res/embed.css";
 
-class BrushableParallelCoordinates extends React.Component {
-  constructor(props) {
-    super(props);
-    this.chartRef = React.createRef();
-  }
+const BrushableParallelCoordinatesEmbed = () => {
+  const containerRef = useRef();
 
-  componentDidMount() {
-    const runtime = new Runtime();
-    const main = runtime.module(notebook, (name) => {
-      if (name === "chart") {
-        return new Inspector(this.chartRef.current);
-      }
-    });
-    this.setState({ main });
-  }
+  useEffect(() => {
+    if (containerRef.current) {
+      new Runtime().module(define, name => {
+        if (name === "viewof selection") {
+          return new Inspector(containerRef.current);
+        }
+      });
+    }
+  }, [containerRef]);
 
-  componentWillUnmount() {
-    this.state.main.dispose();
-  }
+  return (
+    <>
+      <div ref={containerRef}></div>
+      {/* <p>
+        Credit:{" "}
+        <a href="https://observablehq.com/@d3/brushable-parallel-coordinates">
+          Brushable Parallel Coordinates by D3
+        </a>
+      </p> */}
+    </>
+  );
+};
 
-  render() {
-    return <div ref={this.chartRef} />;
-  }
-}
-
-export default BrushableParallelCoordinates;
+export default BrushableParallelCoordinatesEmbed;
